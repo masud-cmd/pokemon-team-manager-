@@ -1,124 +1,102 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
 body {
-	background-color: #777777;
+	background-color: rgba(240, 238, 238, 0.937);
 	padding: 0;
 	margin: 0;
 	transition: 1s all;
 }
 
+
+
+
 header {
 
-	background-color: #444444;
+	background-color: rgba(0, 0, 0, 0.8);
 }
 
-#Layer_1 {
-	.st0 {
-		fill: url(#polygon16_1_)
-	}
+.header-content {
+	display: flex;
+	justify-content: center;
+}
 
-	.st1 {
-		fill: #0071b9
-	}
-
-	.st2 {
-		fill: url(#polygon25_1_)
-	}
-
-	.st3 {
-		fill: #1d2c5e
-	}
-
-	.st4 {
-		fill: url(#polygon36_1_)
-	}
-
-	.st5 {
-		fill: url(#polygon43_1_)
-	}
-
-	.st6 {
-		fill: #312370
-	}
-
-	.st7 {
-		fill: #21386e
-	}
-
-	.st8 {
-		fill: url(#polygon56_1_)
-	}
-
-	.st9 {
-		fill: url(#path69_1_)
-	}
-
-	.st10 {
-		fill: url(#polygon78_1_)
-	}
-
-	.st11 {
-		fill: #ffcb05
-	}
-
-	.st12 {
-		fill: #7d7f68
-	}
-
-	.st13 {
-		fill: #c7a008
-	}
-
-	.st14 {
-		fill: #3c5aa6
-	}
-
-	.st15 {
-		fill: #3567b0
-	}
-
-	.st16 {
-		fill: #1e2d5f
-	}
-
-	.st17 {
-		fill: #3466af
-	}
-
-	.st18 {
-		fill: url(#path183_1_)
-	}
-
-	.st19 {
-		fill: url(#path196_1_)
-	}
+.img-logo {
+	margin-top: 15px;
+	margin-left: 5px;
+	height: 25px;
 }
 
 header h1 {
 	margin: 0;
 	padding: 0.5rem 0rem 0rem 0rem;
 	text-align: center;
-	/* 	border-bottom: 1px solid gray; */
-	/* 	margin-bottom: 0.2rem; */
+
 }
 
-nav ul {
-	list-style-type: none;
+.logo {
+	text-shadow: 4px 0px 4px blue;
+	color: rgb(254, 198, 3);
+}
+
+.invisible {
+	display: none;
+}
+
+
+.search-input2 {
+	display: none;
+	padding: 3px;
+
+}
+
+.add-to-reserve-button {
+	background-color: rgba(0, 0, 0, 0.8);
+	color: rgb(255, 255, 255);
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.add-to-reserve-button:hover {
+	background-color: rgba(0, 0, 0, 1);
+}
+
+nav {
 	display: flex;
 	flex-direction: row;
 	margin: 0.2rem 0;
 	padding: 0;
 }
 
-nav li {
-	margin: 0;
-	padding: 0;
-	border: 1px solid gray;
+nav button {
+	margin: 3px;
+	padding: 0.5em 1.5em;
+	border: 1px solid rgb(128, 128, 128);
 	border-left: none;
-	/* 	border-collapse: collapse; */
-	display: flex;
+	background-color: #444;
+
+	color: rgb(254, 198, 3);
+	cursor: pointer;
+}
+
+
+nav button.selected {
+	background-color: rgb(254, 198, 3);
+	color: black;
+
+}
+
+nav button:hover {
+	background: white;
 }
 
 li.selected {
-	background-color: #666;
+	background-color: #080808;
 }
 
 nav li:first-child {
@@ -137,12 +115,19 @@ nav li a:hover {
 }
 
 nav {
-	/* 	border: 1px solid red; */
+
 	padding: 0rem;
 	padding-bottom: 0.1rem;
-	display: grid;
+
 	justify-content: center;
 }
+
+.selected-tab {
+	background-color: rgb(254, 198, 3);
+	color: black;
+}
+
+
 
 main {
 	display: grid;
@@ -152,27 +137,137 @@ main {
 main section {
 	margin: 1rem 0.4rem;
 	padding: 0.4rem;
-	/* 	border: 1px solid red; */
+
 	box-shadow: 0em 0em 0.3em #eee;
 	border-radius: 0.3em;
 }
 
 .champion .image {
-	width: 4.5em;
-	height: 4.5em;
-	border: 1px solid #444;
-	background: #aaa;
-	margin-right: 1.5em;
+	width: 100px;
+
+	height: 100px;
+
+	border: 1px solid #310879;
+	border-radius: 5px;
+	background-color: rgb(254, 198, 3);
+	background-size: cover;
+
+	background-position: center;
+
+}
+
+#find-champs {
+	color: rgb(50, 44, 44);
+	text-align: center;
+
+
 }
 
 .champion {
-	margin: 1rem 0;
-	border: 1px solid #aaa;
 	display: flex;
-	padding: 0.4em;
+	flex-direction: column;
+	margin: 1rem 0;
+	border: 1px solid #000000ea;
+	display: flex;
+	padding: 0.3em;
 	border-radius: 0.2em;
+	align-items: center;
+	text-align: center;
+	background-color: #f3eded82;
+
+}
+
+.add-to-team-button {
+	background-color: rgba(0, 0, 0, 0.8);
+	color: rgb(255, 255, 255);
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+
+
+
+
 }
 
 h2 {
 	margin: 0.3em 0;
+}
+
+#firstPage,
+#secondPage {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.team-member {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin: 1rem 0;
+	border: 1px solid #000000df;
+	padding: 0.3em;
+	border-radius: 0.2em;
+	background-color: #f3eded82;
+}
+
+.team-member .image {
+	width: 100px;
+	height: 100px;
+	border: 1px solid #310879;
+	border-radius: 5px;
+	background-color: rgb(254, 198, 3);
+	background-size: cover;
+	background-position: center;
+	margin-right: 0.5em;
+}
+
+.team-member h2 {
+	margin: 0;
+}
+
+.remove-from-team-button {
+	background-color: rgba(0, 0, 0, 0.8);
+	color: rgb(255, 255, 255);
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.remove-from-team-button:hover {
+	background-color: rgba(0, 0, 0, 1);
+}
+
+#reserve-list {
+	display: flex;
+	flex-direction: column;
+	font-weight: 900;
+	align-items: center;
+	margin-top: 1em;
+
+}
+
+@media screen and (max-width: 768px) {
+	main {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	nav {
+		flex-direction: column;
+		align-items: center;
+	}
+}
+
+@media screen and (max-width: 320px) {
+
+	.champion .image,
+	.team-member .image {
+		width: 80px;
+		height: 80px;
+	}
 }
