@@ -20,11 +20,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 	});
 
 	myTeamTab.addEventListener('click', () => {
-		switchPage('secondPage');
-		renderMyTeamWithActions();
-		renderReserveList();
-		hidePokemonList();
+
+		if (myTeam.length >= 3) {
+			switchPage('secondPage');
+			renderMyTeamWithActions();
+			renderReserveList();
+			hidePokemonList();
+		} else {
+
+			alert('Please add at least 3 Pokémon to your team before viewing.');
+		}
 	});
+
 
 	searchInput.addEventListener('input', (event) => {
 		const searchTerm = event.target.value.toLowerCase().trim();
@@ -34,21 +41,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 	function addToTeam(pokemonName) {
 		const nicknameInput = document.getElementById('nickname-input');
 		const nickname = nicknameInput.value.trim();
-
-		if (myTeam.length < 3 && !myTeam.some(pokemon => pokemon.name === pokemonName)) {
-			myTeam.push({ name: pokemonName, nickname: nickname });
-			renderMyTeamWithActions();
-		} else {
-			// Update the existing team member with the chosen nickname
-			const existingPokemon = myTeam.find(pokemon => pokemon.name === pokemonName);
-			if (existingPokemon) {
-				existingPokemon.nickname = nickname;
-				renderMyTeamWithActions();
-			}
+		if (myTeam.length >= 3) {
+			alert("you have reached the limit of allowed team members.")
 		}
+
+		myTeam.push({ name: pokemonName, nickname: nickname });
+		if (myTeam.length > 3) {
+			myTeam.pop()
+		}
+
+		renderMyTeamWithActions();
+
 
 		nicknameInput.value = '';
 	}
+
 
 
 	function addToReserve(pokemonName) {
@@ -58,10 +65,22 @@ document.addEventListener('DOMContentLoaded', async () => {
 		}
 	}
 
-	function removeFromTeam(pokemonName) {
-		myTeam = myTeam.filter(pokemon => pokemon.name !== pokemonName);
-		renderMyTeamWithActions();
-		renderReserveList();
+	function removeFromTeam(pokemonName, nickname) {
+		console.log('Removing:', pokemonName, nickname);
+
+		const updatedTeam = myTeam.filter(pokemon => {
+			const nameMatch = pokemon.name === pokemonName;
+			const nicknameMatch = nickname === undefined || pokemon.nickname === nickname;
+			return !(nameMatch && nicknameMatch);
+		});
+
+		console.log('After removal:', updatedTeam);
+
+		if (updatedTeam.length !== myTeam.length) {
+			myTeam = updatedTeam;
+			renderMyTeamWithActions();
+			renderReserveList();
+		}
 	}
 
 	function switchPage(page) {
@@ -102,12 +121,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 	function renderMyTeamWithActions() {
 		myTeamContainer.innerHTML = '';
 
-		myTeam.forEach((pokemon) => {
-			const imageUrl = allPokemon.find(p => p.name === pokemon.name)?.image;
-			const pokemonEntry = createTeamEntryWithActions(pokemon.name, pokemon.nickname, imageUrl);
-			myTeamContainer.appendChild(pokemonEntry);
+		const uniquePokemon = Array.from(new Set(myTeam.map(pokemon => pokemon.name)));
+
+		uniquePokemon.forEach((pokemonName) => {
+			const pokemonInstances = myTeam.filter(pokemon => pokemon.name === pokemonName);
+
+			pokemonInstances.forEach((pokemon) => {
+				const imageUrl = allPokemon.find(p => p.name === pokemon.name)?.image;
+				const pokemonEntry = createTeamEntryWithActions(pokemon.name, pokemon.nickname, imageUrl);
+				myTeamContainer.appendChild(pokemonEntry);
+			});
 		});
 	}
+
 
 	function renderReserveList() {
 		reserveListContainer.innerHTML = '';
@@ -122,7 +148,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 	function createPokemonEntry(name, imageUrl) {
 		console.log('Creating Pokemon Entry:', name);
 
-		// Dynamically generate unique IDs based on the Pokemon name
+
 		const nicknameId = `nickname-${name}`;
 		const addToTeamId = `add-to-team-${name}`;
 		const addToReserveId = `add-to-reserve-${name}`;
@@ -153,7 +179,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 	}
 
 	function createTeamEntryWithActions(name, nickname = '', imageUrl) {
-		console.log('Creating Team Entry with Actions:', name);
+		console.log('Creating Team Entry with Actions:', name, nickname);
 
 		const teamEntry = document.createElement('div');
 		teamEntry.classList.add('team-member');
@@ -167,23 +193,22 @@ document.addEventListener('DOMContentLoaded', async () => {
 			const displayName = nickname ? nickname : name;
 			contentDiv.innerHTML = `
             <h2>${displayName}</h2>
-            <button class="remove-from-team-button" data-pokemon="${name}">Remove</button>
+            <button class="remove-from-team-button" data-pokemon="${name}" data-nickname="${nickname}">Remove</button>
         `;
 
 			teamEntry.appendChild(imageDiv);
 			teamEntry.appendChild(contentDiv);
 		} else {
-			// Handle the case where the image URL is not available
 			const displayName = nickname ? nickname : name;
 			teamEntry.innerHTML = `
             <h2>${displayName}</h2>
-            <button class="remove-from-team-button" data-pokemon="${name}">Remove</button>
+            <button class="remove-from-team-button" data-pokemon="${name}" data-nickname="${nickname}">Remove</button>
         `;
 		}
 
 		const removeButton = teamEntry.querySelector('.remove-from-team-button');
 		removeButton.addEventListener('click', () => {
-			removeFromTeam(name);
+			removeFromTeam(name, nickname);
 		});
 
 		return teamEntry;
