@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 	const pokemonListContainer = document.getElementById('pokemon-list');
 	const myTeamContainer = document.getElementById('my-team-list');
 	const reserveListContainer = document.getElementById('reserve-list');
+	const messageContainer = document.getElementById('message-container');
+	const alertMessage = document.getElementById('alert-message');
+
 
 	let myTeam = [];
 	let reserveList = [];
@@ -19,18 +22,28 @@ document.addEventListener('DOMContentLoaded', async () => {
 		switchPage('firstPage');
 	});
 
-	myTeamTab.addEventListener('click', () => {
 
-		if (myTeam.length >= 3) {
+
+
+	myTeamTab.addEventListener('click', () => {
+		if (myTeam.length < 3) {
+			showMessage('Please add at least 3 Pokémon to your team before viewing.');
+		} else if (myTeam.length > 3) {
+			showMessage('You have reached the maximum number of allowed Pokémon.');
+		} else {
+			closeMessage();
 			switchPage('secondPage');
 			renderMyTeamWithActions();
 			renderReserveList();
 			hidePokemonList();
-		} else {
-
-			alert('Please add at least 3 Pokémon to your team before viewing.');
 		}
 	});
+
+	const closeButton = document.getElementById('close-button');
+	if (closeButton) {
+		closeButton.addEventListener('click', closeMessage);
+	}
+
 
 
 	searchInput.addEventListener('input', (event) => {
@@ -42,12 +55,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 		const nicknameInput = document.getElementById('nickname-input');
 		const nickname = nicknameInput.value.trim();
 		if (myTeam.length >= 3) {
-			alert("you have reached the limit of allowed team members.")
+
 		}
 
 		myTeam.push({ name: pokemonName, nickname: nickname });
 		if (myTeam.length > 3) {
 			myTeam.pop()
+			showMessage('You have reached the maximum number of allowed Pokémon.')
 		}
 
 		renderMyTeamWithActions();
@@ -80,8 +94,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 			myTeam = updatedTeam;
 			renderMyTeamWithActions();
 			renderReserveList();
+
+			if (myTeam.length < 3) {
+				showMessage('Your team is incomplete. Please add at least 3 Pokémon.');
+			}
 		}
 	}
+
 
 	function switchPage(page) {
 		if (page === 'firstPage') {
@@ -213,6 +232,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 		return teamEntry;
 	}
+
+	function showMessage(message) {
+		const messageContainer = document.getElementById('message-container');
+		const alertMessage = document.getElementById('alert-message');
+
+		alertMessage.textContent = message;
+		messageContainer.style.display = 'block';
+
+	}
+	function closeMessage() {
+		const messageContainer = document.getElementById('message-container');
+		messageContainer.style.display = 'none';
+	}
+
 
 
 	function createTeamEntry(name, isReserve = false, imageUrl) {

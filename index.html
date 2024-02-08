@@ -5,6 +5,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Pokémanager</title>
+	<script src="fetch.js" type="module"></script>
+	<script src="main.js" type="module"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 	<link rel="stylesheet" href="style.css">
 	<link rel="icon" href="data:;base64,iVBORw0KGgo=">
@@ -23,6 +25,11 @@
 
 	</header>
 	<main>
+		<div id="message-container" class="styled-alert">
+			<span class="closebtn" id="close-button">&times;</span>
+			<p id="alert-message"></p>
+		</div>
+
 
 		<section>
 			<div id="find-champs">
@@ -48,8 +55,6 @@
 
 	</main>
 
-	<script src="fetch.js" type="module"></script>
-	<script src="main.js" type="module"></script>
 </body>
 
 </html>

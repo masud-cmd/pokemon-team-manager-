@@ -4,6 +4,7 @@
 	padding: 0;
 }
 
+
 body {
 	background-color: rgba(240, 238, 238, 0.937);
 	padding: 0;
@@ -193,6 +194,42 @@ main section {
 
 h2 {
 	margin: 0.3em 0;
+}
+
+.styled-alert {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 20px;
+	background-color: #f44336;
+	color: white;
+	text-align: center;
+	border-radius: 5px;
+	z-index: 1;
+}
+
+.closebtn {
+	margin-left: 15px;
+	color: white;
+	font-weight: bold;
+	font-size: 22px;
+	line-height: 20px;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.closebtn {
+	position: absolute;
+	top: 1px;
+	right: 15px;
+	color: white;
+	font-weight: bold;
+	font-size: 22px;
+	line-height: 20px;
+	cursor: pointer;
+	transition: 0.3s;
 }
 
 #firstPage,
